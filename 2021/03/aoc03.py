@@ -11,11 +11,10 @@ import sys
 def main1(binaries):
     n = len(binaries)
     width = len(binaries[0])
-    
+
     sums = [0 for _ in range(width)]
 
     for binary in binaries:
-        n += 1
         for i, bit in enumerate(binary):
             sums[i] += int(bit)
 
@@ -70,7 +69,7 @@ def most_common(binaries):
             sums[i] += int(bit)
 
     threshold = n / 2
-    return list(str(int(sum >= threshold)) for sum in sums)
+    return [str(int(sum >= threshold)) for sum in sums]
 
 def least_common(binaries):
     n = len(binaries)
