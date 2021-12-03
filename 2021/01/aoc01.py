@@ -21,7 +21,7 @@ def main1(depths):
     print(n)
 
 
-def main2(infile):
+def main2(depths):
     n = 0
     prev = None
 
