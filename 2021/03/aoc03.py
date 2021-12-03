@@ -2,15 +2,17 @@
 """
 Advent Of Code 2021: Day 3
 
-Reads an input file...
+Reads an input file of binary strings and calculates some bitwise nonsense.
 """
 
 import sys
 
 
 def main1(binaries):
-    n = 0
-    sums = [0 for _ in range(len(binaries[0]))]
+    n = len(binaries)
+    width = len(binaries[0])
+    
+    sums = [0 for _ in range(width)]
 
     for binary in binaries:
         n += 1
