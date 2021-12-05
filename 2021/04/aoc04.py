@@ -13,7 +13,7 @@ def main1(numbers, boards):
     print(f'Loaded {len(boards)} boards and {len(numbers)} numbers')
     
     for number in numbers:
-        print(f'Number: {number}')
+        print(f'Draw: {number}')
         for board in boards:
             is_winner = board.play(number)
             if is_winner:
@@ -23,6 +23,26 @@ def main1(numbers, boards):
                 return
     
     print(f'Nobody won!')
+
+
+def main2(numbers, boards):
+    print(f'Loaded {len(boards)} boards and {len(numbers)} numbers')
+    
+    last_winner = None
+    for number in numbers:
+        print(f'Draw: {number}')
+        for board in boards.copy():
+            is_winner = board.play(number)
+            if is_winner:
+                print('BINGO!')
+                last_winner = board
+                boards.remove(board)
+        if not boards:
+            break  # `number` is preserved, because Python.
+    
+    print('LAST WINNER!')
+    print(last_winner)
+    print(f'Score: {last_winner.score(number)}')
 
 
 class Board():
@@ -56,15 +76,17 @@ class Board():
         for row in self.marked:
             if all(row):
                 return True
+        
         # columns
         for i in range(5):
             if all([row[i] for row in self.marked]):
                 return True
+        
         # diagonals
-        if all(self.marked[i][i] for i in range(5)):
-            return True
-        if all(self.marked[i][4-i] for i in range(5)):
-            return True
+        # if all(self.marked[i][i] for i in range(5)):
+        #     return True
+        # if all(self.marked[i][4-i] for i in range(5)):
+        #     return True
         
         return False
     
@@ -81,19 +103,20 @@ class Board():
 def parse(lines):
     """Parse input file and return (numbers, boards)"""
     numbers = [int(tok) for tok in lines.pop(0).split(',')]
-    assert lines.pop(0).strip() == ''  # blank
+    assert lines.pop(0) == ''  # blank
 
     boards = []
     rows = []
 
     for line in lines:
         line = line.strip()
-        if not line:
-            assert len(rows) == 5
+        if line:
+            rows.append([int(tok) for tok in line.split()])
+        else:
+            assert len(rows) == 0
+        if len(rows) == 5:
             boards.append(Board(rows))
             rows = []
-        else:
-            rows.append([int(tok) for tok in line.split()])
     
     return numbers, boards
 
@@ -101,5 +124,10 @@ def parse(lines):
 if __name__ == '__main__':
     infile = sys.stdin if len(sys.argv) == 1 else open(sys.argv[1], 'r')
     numbers, boards = parse([line.strip() for line in infile])
-
     main1(numbers, boards)
+
+    print('-----------------------')
+
+    infile = sys.stdin if len(sys.argv) == 1 else open(sys.argv[1], 'r')
+    numbers, boards = parse([line.strip() for line in infile])
+    main2(numbers, boards)
