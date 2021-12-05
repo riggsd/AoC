@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Advent Of Code 2021: Day 3
+Advent Of Code 2021: Day 4
 https://adventofcode.com/2021/day/4
 
 Reads an input file of bingo numbers and boards, finds a winner.
