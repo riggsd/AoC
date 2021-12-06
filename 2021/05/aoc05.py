@@ -16,6 +16,7 @@ X, Y = 0, 1  # the two coordinates of a point
 def main1(vectors):
     main2(horizontals(vectors))
 
+
 def main2(vectors):
     w = max([max(v[A][X], v[B][X]) for v in vectors]) + 1
     h = max([max(v[A][Y], v[B][Y]) for v in vectors]) + 1
