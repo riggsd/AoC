@@ -6,14 +6,6 @@ infile = sys.stdin if len(sys.argv) == 1 else open(sys.argv[1], 'r')
 
 school = map(int, infile.readline().split(','))
 
-def reproduce(fish):
-    if fish == 0:
-        yield 6
-        yield 8
-    else:
-        yield fish - 1
-
-
 for day in range(256):
     school2 = []
     for fish in school:
