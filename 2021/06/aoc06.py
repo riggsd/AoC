@@ -6,7 +6,7 @@ infile = sys.stdin if len(sys.argv) == 1 else open(sys.argv[1], 'r')
 
 school = map(int, infile.readline().split(','))
 
-for day in range(256):
+for day in range(1, 80+1):
     school2 = []
     for fish in school:
         if fish == 0:
