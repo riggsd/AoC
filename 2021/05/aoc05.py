@@ -7,10 +7,11 @@ Reads an input file of coordinate vectors and does something or other.
 """
 
 import sys
+from collections import namedtuple
 
 
-A, B = 0, 1  # the two points of a vector
-X, Y = 0, 1  # the two coordinates of a point
+Point = namedtuple('Point', 'x y')
+Vector = namedtuple('Vector', 'a b')
 
 
 def main1(vectors):
@@ -18,15 +19,15 @@ def main1(vectors):
 
 
 def main2(vectors):
-    w = max([max(v[A][X], v[B][X]) for v in vectors]) + 1
-    h = max([max(v[A][Y], v[B][Y]) for v in vectors]) + 1
+    w = max([max(v.a.x, v.b.x) for v in vectors]) + 1
+    h = max([max(v.a.y, v.b.y) for v in vectors]) + 1
     grid = [[0 for _ in range(0, h)] for _ in range(0, w)]
     print(f'Initialized {w}x{h} grid.')
 
     print(f'Loaded {len(vectors)} vectors.')
     for v in vectors:
         for p in iterate(v):
-            grid[p[X]][p[Y]] += 1
+            grid[p.x][p.y] += 1
     
     count = 0
     for row in grid:
@@ -37,26 +38,26 @@ def main2(vectors):
 
 def iterate(vector):
     """Generate all discrete points of a single vector"""
-    dx = 1 if vector[A][X] <= vector[B][X] else -1
-    dy = 1 if vector[A][Y] <= vector[B][Y] else -1
+    dx = 1 if vector.a.x <= vector.b.x else -1
+    dy = 1 if vector.a.y <= vector.b.y else -1
 
-    if vector[A][X] == vector[B][X] or vector[A][Y] == vector[B][Y]:
+    if vector.a.x == vector.b.x or vector.a.y == vector.b.y:
         # horizontals / verticals
-        for x in range(vector[A][X], vector[B][X]+dx, dx):
-            for y in range(vector[A][Y], vector[B][Y]+dy, dy):
-                yield x, y
+        for x in range(vector.a.x, vector.b.x+dx, dx):
+            for y in range(vector.a.y, vector.b.y+dy, dy):
+                yield Point(x, y)
     else:
         # diagonals
-        x, y = vector[A][X], vector[A][Y]
-        while x != vector[B][X] and y != vector[B][Y]:
-            yield x, y
+        x, y = vector.a.x, vector.a.y
+        while x != vector.b.x and y != vector.b.y:
+            yield Point(x, y)
             x += dx
             y += dy
-        yield vector[B]
+        yield vector.b
 
 def horizontals(vectors):
     """Filter a list of vectors to only include "horizontal" vectors"""
-    return [v for v in vectors if v[A][X] == v[B][X] or v[A][Y] == v[B][Y]]
+    return [v for v in vectors if v.a.x == v.b.x or v.a.y == v.b.y]
 
 def print_grid(grid):
     w, h = len(grid), len(grid[0])
@@ -71,9 +72,9 @@ def parse(lines):
     for line in lines:
         toks = line.split()
         assert len(toks) == 3
-        a = [int(val) for val in toks[0].split(',')]
-        b = [int(val) for val in toks[2].split(',')]
-        yield a, b
+        a = Point(*[int(val) for val in toks[0].split(',')])
+        b = Point(*[int(val) for val in toks[2].split(',')])
+        yield Vector(a, b)
 
 
 if __name__ == '__main__':
