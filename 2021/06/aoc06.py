@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Advent Of Code 2021: Day 5
-https://adventofcode.com/2021/day/5
+Advent Of Code 2021: Day 6
+https://adventofcode.com/2021/day/6
 
 Reads an input file of "fish" modeled as numbers, calculates exponential growth.
 """
