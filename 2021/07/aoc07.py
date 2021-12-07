@@ -8,6 +8,7 @@ Reads an input file of horizontal positions, optimizes fuel cost for aligning th
 
 import sys
 from array import array
+from functools import cache
 from statistics import median
 
 
@@ -28,6 +29,7 @@ def calculate_fuel(positions, end):
     """Calculate total fuel cost to move all crabs to end point"""
     return sum([calculate_crab(pos, end) for pos in positions])
 
+@cache
 def calculate_crab(start, end):
     """Calculate fuel cost for a single crab moving from start -> end"""
     dist = abs(end - start)
