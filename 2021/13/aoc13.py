@@ -3,7 +3,7 @@
 Advent Of Code 2021: Day 13
 https://adventofcode.com/2021/day/13
 
-Reads an input file ...
+Reads an input file of dot coordinates and paper-folding instructions, and performs origami
 """
 
 import sys
