@@ -4,11 +4,6 @@ import sys
 from typing import Iterator, Tuple
 
 
-def parse(infile) -> Iterator[str]:
-    for line in infile:
-        yield line.strip()
-
-
 def split2(infile) -> Iterator[Tuple[set, set]]:
     for line in infile:
         n = len(line)
@@ -26,7 +21,7 @@ def priority(items: set[str]) -> int:
     return sum('_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.index(item) for item in items)
 
 
-input = list( parse(sys.stdin) )
+input = list(line.strip() for line in sys.stdin)
 
 total1 = sum( priority(l & r) for (l, r) in split2(input) )
 print(total1)
