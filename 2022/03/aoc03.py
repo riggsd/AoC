@@ -22,12 +22,8 @@ def split3(infile) -> Iterator[Tuple[set, set, set]]:
         yield set(line1), set(line2), set(line3)
 
 
-def pri(item: str) -> int:
-    return '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.index(item)
-
-
 def priority(items: set[str]) -> int:
-    return sum(pri(item) for item in items)
+    return sum('_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.index(item) for item in items)
 
 
 input = list( parse(sys.stdin) )
