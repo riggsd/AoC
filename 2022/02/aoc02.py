@@ -26,15 +26,15 @@ class Hand(Enum):
     def beats(self) -> "Hand":
         return {
             self.ROCK:     self.SCISSORS,
-            self.SCISSORS: self.PAPER,
             self.PAPER:    self.ROCK,
+            self.SCISSORS: self.PAPER,
         }[self]
 
     def loses_to(self) -> "Hand":
         return {
             self.ROCK:     self.PAPER,
-            self.SCISSORS: self.ROCK,
             self.PAPER:    self.SCISSORS,
+            self.SCISSORS: self.ROCK,
         }[self]
 
 
