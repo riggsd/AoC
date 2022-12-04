@@ -15,18 +15,18 @@ def parse(infile) -> Iterator[tuple[set, set]]:
         yield set(range(a[0], a[1]+1)), set(range(b[0], b[1]+1))
 
 
-def fully_contains(pair: tuple) -> bool:
-    return not pair[0] - pair[1] or not pair[1] - pair[0]
+def fully_contains(a: set, b: set) -> bool:
+    return not a - b or not b - a
 
 
-def overlaps(pair: tuple) -> bool:
-    return pair[0] & pair[1]
+def overlaps(a: set, b: set) -> bool:
+    return bool(a & b)
 
 
 input = list(parse(sys.stdin))
 
-n1 = len([pair for pair in input if fully_contains(pair)])
+n1 = len([pair for pair in input if fully_contains(*pair)])
 print(n1)
 
-n2 = len([pair for pair in input if overlaps(pair)])
+n2 = len([pair for pair in input if overlaps(*pair)])
 print(n2)
