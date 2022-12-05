@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-from copy import deepcopy
-from typing import TextIO
 
 
 def transpose(matrix):
