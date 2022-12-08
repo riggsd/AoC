@@ -57,12 +57,12 @@ def mkfile(fname, size):
 
 def cd(dirname):
     global pwd
-    if dirname in pwd.children:
-        pwd = pwd.children[dirname]
-    elif dirname == '/':
+    if dirname == '/':
         pwd = fs
     elif dirname == '..':
         pwd = pwd.parent
+    else:
+        mkdir(dirname)
 
 def print_tree(node, indent=''):
     if node.size is not None:
@@ -76,19 +76,9 @@ def run(input):
     global pwd
     for line in input:
         if line[0] == '$':
-            cmd = line[1]
-            if cmd == 'cd':
-                arg = line[2] if len(line) > 2 else None
-                if arg == '/':
-                    pwd = fs
-                elif arg == '..':
-                    pwd = pwd.parent
-                else:
-                    mkdir(line[2])
-            elif cmd == 'ls':
-                continue
+            if line[1] == 'cd':
+                cd(line[2] if len(line) > 2 else None)
         else:
-            # output from `ls` cmd
             if line[0] == 'dir':
                 mkdir(line[1])
             else:
