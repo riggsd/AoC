@@ -5,7 +5,7 @@ from typing import Iterator
 
 
 class Node():
-    def __init__(self, name, parent:'Node', size:int=None, children:dict[str,'Node']=None):
+    def __init__(self, name, parent: 'Node', size: int=None, children: dict[str, 'Node']=None):
         self.name = name
         self.parent = parent
         self.size = size
@@ -29,7 +29,7 @@ class Node():
             for child in self.children.values():
                 yield from child.walk()
 
-    def child(self, name, size:int=None, children:dict[str,'Node']=None):
+    def child(self, name, size: int=None, children: dict[str, 'Node']=None) -> 'Node':
         node = Node(name, self, size=size, children=children)
         self.children[name] = node
         return node
@@ -44,7 +44,6 @@ input = parse(infile)
 
 fs = Node('/', None)
 pwd = fs
-ps = None
 
 def mkdir(dirname):
     global pwd
