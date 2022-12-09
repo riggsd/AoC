@@ -1,0 +1,63 @@
+        [M]     [B]             [N]
+[T]     [H]     [V] [Q]         [H]
+[Q]     [N]     [H] [W] [T]     [Q]
+[V]     [P] [F] [Q] [P] [C]     [R]
+[C]     [D] [T] [N] [N] [L] [S] [J]
+[D] [V] [W] [R] [M] [G] [R] [N] [D]
+[S] [F] [Q] [Q] [F] [F] [F] [Z] [S]
+[N] [M] [F] [D] [R] [C] [W] [T] [M]
+ 1   2   3   4   5   6   7   8   9 
+
+1: NSDCVQT
+2: MFV
+3: FQWDPNHM
+4: DQRTF
+5: RFMNQHVB
+6: CFGNPWQ
+7: WFRLCT
+8: TZNS
+9: MSDJRQHN
+
+1: BFQZNRF
+2: NR
+3: D
+4: FTTMS
+5: CWVQPPQQDNQ
+6: WR
+7: NDSTFMMJFLR
+8: HCVC
+9: HGNNTSQHWVFMD
+
+FRDSQRRCD
+
+        [M]     [B]             [N]
+[T]     [H]     [V] [Q]         [H]
+[Q]     [N]     [H] [W] [T]     [Q]
+[V]     [P] [F] [Q] [P] [C]     [R]
+[C]     [D] [T] [N] [N] [L] [S] [J]
+[D] [V] [W] [R] [M] [G] [R] [N] [D]
+[S] [F] [Q] [Q] [F] [F] [F] [Z] [S]
+[N] [M] [F] [D] [R] [C] [W] [T] [M]
+ 1   2   3   4   5   6   7   8   9 
+
+1: NSDCVQT
+2: MFV
+3: FQWDPNHM
+4: DQRTF
+5: RFMNQHVB
+6: CFGNPWQ
+7: WFRLCT
+8: TZNS
+9: MSDJRQHN
+
+1: FDFCDVH
+2: QR
+3: F
+4: RWCNT
+5: MTQJHSBWMPQ
+6: QV
+7: NSQMFVMCTRW
+8: PDNN
+9: STFNZGRFHQDLN
+
+HRFTQVWNN

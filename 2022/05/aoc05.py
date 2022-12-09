@@ -44,7 +44,8 @@ def print_stacks(stacks):
     print()
 
 
-input = sys.stdin.read()
+infile = sys.stdin if len(sys.argv) < 2 else open(sys.argv[1])
+input = infile.read()
 
 
 # part 1
@@ -56,6 +57,7 @@ for n, source, destination in instructions:
 print_stacks(stacks)
 tops = ''.join(stack[-1] for stack in stacks.values())
 print(tops)
+print()
 
 
 # part 2
