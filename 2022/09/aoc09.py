@@ -83,10 +83,10 @@ input = list(parse(infile))
 
 
 # Part 1
-rope = [[0,0] for _ in range(2)]
-print(play(rope, input))
+rope1 = [[0,0] for _ in range(2)]
+print(play(rope1, input))
 
 
 # Part 2
-rope = [[0,0] for _ in range(10)]
-print(play(rope, input))
+rope2 = [[0,0] for _ in range(10)]
+print(play(rope2, input))
