@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+from typing import Iterator
 
 
 def parse(infile):
@@ -10,7 +11,7 @@ def parse(infile):
 infile = sys.stdin if len(sys.argv) < 2 else open(sys.argv[1])
 input = parse(infile)
 
-SAMPLE_CYCLES = [20] + list(range(60, 220+1, 40))
+SAMPLE_CYCLES = list(range(20, 220+1, 40))
 
 X = 1
 
@@ -30,17 +31,16 @@ def score(cycle):
     return X * cycle
 
 
-def analyze(input):
+def analyze(input) -> Iterator[int]:
     input = iter(input)
     cycle = 0
     stack = []
-    sampled = []
 
     while True:
         cycle += 1
 
         if cycle in SAMPLE_CYCLES:
-            sampled.append(score(cycle))
+            yield score(cycle)
 
         if stack:
             stack.pop()()
@@ -48,7 +48,7 @@ def analyze(input):
             try:
                 cmd = next(input)
             except StopIteration:
-                return sum(sampled)
+                return
             match cmd:
                 case ['noop']:
                     pass
@@ -58,4 +58,4 @@ def analyze(input):
                     raise Exception(cmd)
 
 
-print(analyze(input))
+print(sum(analyze(input)))
