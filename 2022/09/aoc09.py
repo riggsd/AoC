@@ -5,6 +5,9 @@ from itertools import pairwise
 from typing import Iterator
 
 
+X, Y = 0, 1
+
+
 def parse(infile) -> Iterator[tuple[str, int]]:
     for line in infile:
         direction, steps = line.strip().split()
@@ -12,7 +15,7 @@ def parse(infile) -> Iterator[tuple[str, int]]:
 
 
 def compare(head, tail) -> tuple[int, int]:
-    return abs(head[0] - tail[0]), abs(head[1] - tail[1])
+    return abs(head[X] - tail[X]), abs(head[Y] - tail[Y])
 
 
 def distance(head, tail) -> int:
@@ -21,14 +24,10 @@ def distance(head, tail) -> int:
 
 def move(head, direction):
     match direction:
-        case 'U':
-            head[0] += 1
-        case 'D':
-            head[0] -= 1
-        case 'R':
-            head[1] += 1
-        case 'L':
-            head[1] -= 1
+        case 'U': head[X] += 1
+        case 'D': head[X] -= 1
+        case 'R': head[Y] += 1
+        case 'L': head[Y] -= 1
 
 
 def yank(head, tail):
@@ -36,9 +35,9 @@ def yank(head, tail):
         return
     dx, dy = compare(head, tail)
     if dx:
-        tail[0] += 1 if head[0] > tail[0] else -1
+        tail[X] += 1 if head[X] > tail[X] else -1
     if dy:
-        tail[1] += 1 if head[1] > tail[1] else -1
+        tail[Y] += 1 if head[Y] > tail[Y] else -1
 
 
 def play(rope, input) -> int:
