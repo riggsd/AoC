@@ -11,6 +11,14 @@ def parse(infile) -> Iterator[tuple[str, int]]:
         yield direction, int(steps)
 
 
+def compare(head, tail) -> tuple[int, int]:
+    return abs(head[0] - tail[0]), abs(head[1] - tail[1])
+
+
+def distance(head, tail) -> int:
+    return max(compare(head, tail))
+
+
 def move(head, direction):
     match direction:
         case 'U':
@@ -21,14 +29,6 @@ def move(head, direction):
             head[1] += 1
         case 'L':
             head[1] -= 1
-
-
-def compare(head, tail) -> tuple[int, int]:
-    return abs(head[0] - tail[0]), abs(head[1] - tail[1])
-
-
-def distance(head, tail) -> int:
-    return max(compare(head, tail))
 
 
 def yank(head, tail):
