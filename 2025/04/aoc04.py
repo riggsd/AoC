@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# https://adventofcode.com/2025/day/3
+# https://adventofcode.com/2025/day/4
 
 import sys
 from copy import deepcopy
