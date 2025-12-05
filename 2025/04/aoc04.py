@@ -10,17 +10,19 @@ THRESHOLD = 4
 
 
 def input():
-    """return 2D binary int grid"""
+    """Return input as 2D binary int grid"""
     infile = open(sys.argv[1]) if len(sys.argv) > 1 else sys.stdin
-    return list([list([1 if c == '@' else 0 for c in line.strip()]) for line in infile])
+    return [[1 if c == '@' else 0 for c in line.strip()] for line in infile]
 
 
 def pprint(grid):
+    """Print a grid"""
     for row in grid:
         print(''.join(' ' if not v else str(v) for v in row))
 
 
 def add(grid, grid2, mask):
+    """Add shifted grid2 onto grid, per the binary mask locations"""
     for x in range(len(grid)):
         for y in range(len(grid[x])):
             if mask[x][y]:
@@ -28,89 +30,71 @@ def add(grid, grid2, mask):
 
 
 def shift(grid, x, y) -> list:
+    """Calculate a shifted grid in the specified direction"""
     assert(x in {1, 0, -1})
     assert(y in {1, 0, -1})
-    grid = deepcopy(grid)
+    shifted = deepcopy(grid)
 
-    zero_row = list(0 for i in range(len(grid[0])))
     if x == 1:
-        grid.pop(0)
-        grid.append(zero_row)
+        shifted.pop(0)
+        shifted.append(list(0 for i in range(len(shifted[0]))))
     elif x == -1:
-        grid.pop(-1)
-        grid.insert(0, zero_row)
+        shifted.pop(-1)
+        shifted.insert(0, list(0 for i in range(len(shifted[0]))))
     
     if y == 1:
-        for row in grid:
+        for row in shifted:
             row.pop(0)
             row.append(0)
     elif y == -1:
-        for row in grid:
+        for row in shifted:
             row.pop(-1)
             row.insert(0, 0)
 
-    return grid
+    return shifted
 
 
 def count_neighbors(grid) -> list:
-    neighbors = deepcopy(grid)
+    """From a binary grid, calculate a grid of neighbor counts"""
+    neighbors = [[0 for _ in range(len(grid[x]))] for x in range(len(grid))]  # zero grid
 
     for x,y in [(-1,-1), (-1,0), (-1,1),
                 ( 0,-1),          (0,1),
                 ( 1,-1),  (1,0),  (1,1)]:
         add(neighbors, shift(grid, x, y), grid)
     
-    for x in range(len(neighbors)):
-        for y in range(len(neighbors[x])):
-            if neighbors[x][y]:
-                neighbors[x][y] -= 1  # fix counting ourself
-
     return neighbors
 
-def prune(grid) -> int:
+
+def prune(neighbors, mask) -> int:
+    """Remove all accessible rolls from grid and mask, and return the count"""
     pruned = 0
-    for x in range(len(grid)):
-        for y in range(len(grid[x])):
-            val = grid[x][y]
-            if val and val < THRESHOLD:
+    for x in range(len(neighbors)):
+        for y in range(len(neighbors[x])):
+            if mask[x][y] and neighbors[x][y] < THRESHOLD:
+                neighbors[x][y] = 0
+                mask[x][y] = 0
                 pruned += 1
-                grid[x][y] = 0
     return pruned
 
 
-def to_mask(neighbors) -> list:
-    grid = deepcopy(neighbors)
-    for x in range(len(grid)):
-        for y in range(len(grid[x])):
-            if grid[x][y]:
-                grid[x][y] = 1
-    return grid
-
-
 grid = input()
-pprint(grid)
-print()
-
 neighbors = count_neighbors(grid)
-pprint(neighbors)
-print()
-
 
 # Part 1
 accessible = 0
-for row in neighbors:
-    for val in row:
-        if val and val < THRESHOLD:
+for x in range(len(neighbors)):
+    for y in range(len(neighbors[x])):
+        if grid[x][y] and neighbors[x][y] < THRESHOLD:
             accessible += 1
 print("Accessible Rolls:", accessible)
 
-
 # Part 2
 total_removed = 0
-while (removed := prune(neighbors)) > 0:
+while (removed := prune(neighbors, grid)) > 0:
     total_removed += removed
-    #print(f"Remove {removed} rolls")
-    neighbors = count_neighbors(to_mask(neighbors))
+    #print(f"Remove {removed:4d} rolls")
+    neighbors = count_neighbors(grid)
     #pprint(neighbors)
     #print()
-print("Total Removed:", total_removed)  # FAIL: too low?!
+print("Total Removed:", total_removed)
