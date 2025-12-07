@@ -7,7 +7,7 @@ import functools
 from operator import add, mul
 
 
-ops = { '+': add,'*': mul}
+ops = {'+': add,'*': mul}
 
 
 def input():
@@ -19,7 +19,7 @@ def input():
 def parse(data):
     """Parse columns into rows of values with operator, like Part 1 data"""
     lines = data.splitlines()
-    ops = lines.pop(-1).split()  # strip the operators off, they're aligned with columns
+    ops   = lines.pop(-1).split()  # strip the operators off, they're aligned with columns
 
     # restack columns as rows
     rotated = [''.join(row).strip() for row in zip(*lines)]
