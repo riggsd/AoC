@@ -6,7 +6,7 @@ import sys
 
 
 def input():
-    """Return input as 2D binary int grid"""
+    """list of ranges and list of ingredient IDs"""
     infile = open(sys.argv[1]) if len(sys.argv) > 1 else sys.stdin
     ranges, ingredients = [], []
     for line in infile:
@@ -19,7 +19,6 @@ def input():
 
 ranges, ids = input()
 
-# Part 1
 fresh = 0
 for id in ids:
     for start, end in ranges:
